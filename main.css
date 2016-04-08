@@ -1,60 +1,60 @@
 body {
-	margin: 20px;
-	padding: 0;
+    margin: 20px;
+    padding: 0;
 }
 
 #progressPath path {
-	stroke-width: 10;
+    stroke-width: 10;
 }
 
 .baby-profile {
-	background: #f2f5f7;
+    background: #f2f5f7;
 
-	width: 80vw;
-	height: 80vh;
+    width: 80vw;
+    height: 80vh;
 
-	border-radius: 5%;
+    border-radius: 5%;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .avatar-box {
-	width: 300px;
-	height: 300px;
-	border-radius: 50%;
-	background: white;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: white;
 
-	position: relative;
+    position: relative;
 }
 
 .avatar-box:before {
-	position: absolute;
-	left: 50%;
-	top: -30px;
-	margin-left: -40px;
-	z-index: -1;
+    position: absolute;
+    left: 50%;
+    top: -30px;
+    margin-left: -40px;
+    z-index: -1;
 
-	content: '';
-	width: 0; 
-	height: 0; 
-	border-left: 40px solid transparent;
-	border-right: 40px solid transparent;
-	border-bottom: 40px solid white;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 40px solid white;
 }
 
 .avatar {
-	width: 226px;
-	height: 226px;
-	background: url('http://i.imgur.com/kc8uGI4.jpg');
-	background-size: 100%;
+    width: 226px;
+    height: 226px;
+    background: url('http://i.imgur.com/kc8uGI4.jpg');
+    background-size: 100%;
 
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -113px;	
-	margin-top: -113px;	
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -113px;
+    margin-top: -113px;
 
-	border-radius: 50%;
+    border-radius: 50%;
 }
