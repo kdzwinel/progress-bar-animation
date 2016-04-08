@@ -26,7 +26,7 @@ function conicGradient(el, from, to) {
         size: 120
     });
 
-    el.style.backgroundImage = 'url(' + gradient.png + ')';
+    el.setAttribute('xlink:href', gradient.dataURL);
 }
 
 function drawLine(path) {
@@ -34,10 +34,10 @@ function drawLine(path) {
 
     path.style.transition = path.style.WebkitTransition = 'none';
     path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = 0;
+    path.style.strokeDashoffset = length;
     path.getBoundingClientRect();
     path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = length;
+    path.style.strokeDashoffset = '0';
 }
 
 function changeAvatar(i) {
@@ -72,8 +72,11 @@ function progressBarAnimation() {
 
     function drawContinous() {
         i++;
+
         changeAvatar(i);
-        conicGradient(avatarBox, getColor(i + 1), getColor(i));
+
+        conicGradient(background, getColor(i + 1), getColor(i));
+
         drawLine(path);
     }
 
@@ -85,6 +88,7 @@ function progressBarAnimation() {
 
 progressBar.style.display = 'none';
 
+const background = document.querySelector('.background');
 const avatarBox = document.querySelector('.avatar-box');
 const avatar = document.querySelector('.avatar');
 

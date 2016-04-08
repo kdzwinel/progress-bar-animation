@@ -3,10 +3,6 @@ body {
     padding: 0;
 }
 
-svg {
-    transform: translateZ(0);
-}
-
 .baby-profile {
     background: #f2f5f7;
 
@@ -30,8 +26,6 @@ svg {
 
     background-repeat: no-repeat;
     background-size: contain;
-
-    transform: translateZ(0);
 }
 
 .avatar-box:before {
