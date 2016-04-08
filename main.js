@@ -20,122 +20,29 @@ function getAvatar(idx) {
 }
 // HELPERS
 
-function conicGradient(el) {
-    const maskA = el.querySelector('.partA');
-    const maskB = el.querySelector('.partB');
-    const startDeg = 90;
+const pieLeft = document.querySelector('.pie .slice-left');
+const pieRight = document.querySelector('.pie .slice-right');
 
-    for (let i = 1; i < 360; i++) {
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('width', 55);
-        rect.setAttribute('height', 55);
-        rect.setAttribute('fill', makeRGBA(i));
-        rect.setAttribute('transform', 'rotate(' + ( startDeg + i) + ' 55 55)');
-
-        if (i > startDeg + 180) {
-            maskB.appendChild(rect);
-        } else {
-            maskA.appendChild(rect);
-        }
-    }
-}
-
-function drawLine(path) {
-    const length = path.getTotalLength();
-
-    path.style.transition = path.style.WebkitTransition = 'none';
-    path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = length;
-    path.getBoundingClientRect();
-    path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = '0';
-}
-
-function changeAvatar(i) {
-    let player = avatar.animate([
-        {transform: 'rotateY(0) scale(1)'},
-        {transform: 'rotateY(90deg) scale(0.7)'}
-    ], {
-        easing: 'ease-in',
-        duration: 150
-    });
-
-    player.onfinish = () => {
-        document.querySelector('.avatar').style.backgroundImage = 'url(' + getAvatar(i) + ')';
-
-        avatar.animate([
-            {transform: 'rotateY(90deg) scale(0.7)'},
-            {transform: 'rotateY(0deg) scale(1)'}
-        ], {
-            easing: 'ease-out',
-            duration: 150
-        });
-    };
-
-}
-
-const progressBar = document.querySelector('.progress-bar');
-const background = progressBar.querySelector('.background');
-const backgroundTo = background.children[0];
-const backgroundFrom = background.children[1];
-const path = progressBar.querySelector('#progressPath path');
-
-function progressBarAnimation() {
-
-    let i = 0;
-
-    function drawContinous() {
-        i++;
-
-        changeAvatar(i);
-
-        backgroundTo.style.fill = getColor(i + 1);
-        backgroundFrom.style.fill = getColor(i);
-
-        drawLine(path);
-    }
-
-    path.addEventListener('transitionend', drawContinous);
-    drawContinous();
-}
-
-// MAIN
-
-progressBar.style.display = 'none';
-
-conicGradient(progressBar);
-
-const avatarBox = document.querySelector('.avatar-box');
-
-const avatar = document.querySelector('.avatar');
-avatar.style.display = 'none';
-
-avatarBox.style.transform = 'scale(0)';
-
-let player = avatarBox.animate([
-    {transform: 'scale(0)'},
-    {transform: 'scale(1.25)', offset: 0.9},
-    {transform: 'scale(1)', offset: 1}
+let player = pieRight.animate([
+    {webkitClipPath: 'rect(0, 50%, .5em, .5em)', opacity: 0},
+    {webkitClipPath: 'rect(0, 1em, .5em, .5em)', opacity: 1, offset: 0.5},
+    {webkitClipPath: 'rect(0, 1em, 1em, .5em)', opacity: 0, offset: 1}
 ], {
-    easing: 'ease-in-out',
-    duration: 400,
+    easing: 'ease-in',
+    duration: 300,
     delay: 1000,
     fill: 'forwards'
 });
 
 player.onfinish = () => {
-    avatar.style.display = 'block';
-    player = avatar.animate([
-        {transform: 'scale(0)'},
-        {transform: 'scale(1)'}
+    pieLeft.animate([
+        {webkitClipPath: 'rect(.5em, .5em, 1em, .5em)'},
+        {webkitClipPath: 'rect(.5em, .5em, 1em, 0)', offset: 0.5},
+        {webkitClipPath: 'rect(.3em, .5em, 1em, 0)', offset: 1}
     ], {
-        easing: 'ease-in-out',
-        duration: 200
+        easing: 'ease-out',
+        duration: 300,
+        fill: 'forwards'
     });
-
-    player.onfinish = () => {
-        progressBar.style.display = 'block';
-        progressBarAnimation();
-    };
 };
 
