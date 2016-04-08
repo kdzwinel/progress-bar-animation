@@ -25,7 +25,7 @@ function conicGradient(el) {
     const maskB = el.querySelector('.partB');
     const startDeg = 90;
 
-    for (i = 1; i < 360; i++) {
+    for (let i = 1; i < 360; i++) {
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('width', 55);
         rect.setAttribute('height', 55);
@@ -131,7 +131,7 @@ player.onfinish = () => {
     ], {
         easing: 'ease-in-out',
         duration: 200
-    })
+    });
 
     player.onfinish = () => {
         progressBar.style.display = 'block';
