@@ -20,24 +20,13 @@ function getAvatar(idx) {
 }
 // HELPERS
 
-function conicGradient(el) {
-    const maskA = el.querySelector('.partA');
-    const maskB = el.querySelector('.partB');
-    const startDeg = 90;
+function conicGradient(el, from, to) {
+    const gradient = new ConicGradient({
+        stops: from + ", " + to,
+        size: 120
+    });
 
-    for (let i = 1; i < 360; i++) {
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('width', 55);
-        rect.setAttribute('height', 55);
-        rect.setAttribute('fill', makeRGBA(i));
-        rect.setAttribute('transform', 'rotate(' + ( startDeg + i) + ' 55 55)');
-
-        if (i > startDeg + 180) {
-            maskB.appendChild(rect);
-        } else {
-            maskA.appendChild(rect);
-        }
-    }
+    el.style.backgroundImage = 'url(' + gradient.png + ')';
 }
 
 function drawLine(path) {
@@ -45,10 +34,10 @@ function drawLine(path) {
 
     path.style.transition = path.style.WebkitTransition = 'none';
     path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = length;
+    path.style.strokeDashoffset = 0;
     path.getBoundingClientRect();
     path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = '0';
+    path.style.strokeDashoffset = length;
 }
 
 function changeAvatar(i) {
@@ -74,11 +63,8 @@ function changeAvatar(i) {
 
 }
 
-const progressBar = document.querySelector('.progress-bar');
-const background = progressBar.querySelector('.background');
-const backgroundTo = background.children[0];
-const backgroundFrom = background.children[1];
-const path = progressBar.querySelector('#progressPath path');
+const progressBar = document.querySelector('#progressPath');
+const path = progressBar.querySelector('path');
 
 function progressBarAnimation() {
 
@@ -86,12 +72,8 @@ function progressBarAnimation() {
 
     function drawContinous() {
         i++;
-
         changeAvatar(i);
-
-        backgroundTo.style.fill = getColor(i + 1);
-        backgroundFrom.style.fill = getColor(i);
-
+        conicGradient(avatarBox, getColor(i + 1), getColor(i));
         drawLine(path);
     }
 
@@ -103,13 +85,10 @@ function progressBarAnimation() {
 
 progressBar.style.display = 'none';
 
-conicGradient(progressBar);
-
 const avatarBox = document.querySelector('.avatar-box');
-
 const avatar = document.querySelector('.avatar');
-avatar.style.display = 'none';
 
+avatar.style.display = 'none';
 avatarBox.style.transform = 'scale(0)';
 
 let player = avatarBox.animate([

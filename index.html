@@ -1,36 +1,20 @@
 <html>
 <head>
     <link href="main.css" rel="stylesheet"/>
+    <meta name="viewport" id="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 </head>
 <body>
 
 <div class='baby-profile'>
     <div class='avatar-box'>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110" version="1.1" class='progress-bar'>
-            <defs>
-                <clipPath id="overlapClip">
-                    <rect x="0" y="55" width="110" height="55"/>
-                </clipPath>
 
-                <mask id="progressPath">
-                    <path d="M 55 5
-               A 50 50 0 1 1 55 105
-               A 50 50 0 1 1 55 5
-               Z" style="fill: #000; stroke: #fff;"/>
-                </mask>
-
-                <mask id="angleX">
-                    <g>
-                        <rect x="55" width="55" height="55" style='fill: #fff'/>
-                        <g class="partA"></g>
-                        <g class="partB" clip-path="url(#overlapClip)"></g>
-                    </g>
-                </mask>
-            </defs>
-
-            <g class="background" mask='url(#progressPath)'>
-                <rect width="110" height="110" style='fill:#6ed6a0'/>
-                <rect width="110" height="110" mask="url(#angleX)" style='fill:#abe3ff'/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110" version="1.1">
+            <g id="progressPath">
+                <path d="M 55 5
+                   A 50 50 0 1 1 55 105
+                   A 50 50 0 1 1 55 5
+                   Z" style="fill: white; stroke: white; stroke-width: 10"/>
             </g>
         </svg>
 
@@ -39,6 +23,7 @@
     </div>
 </div>
 
+<script src="conic-gradient.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
