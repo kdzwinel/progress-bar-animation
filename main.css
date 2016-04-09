@@ -1,67 +1,23 @@
 body {
     margin: 20px;
-    padding: 0;
-}
-
-.baby-profile {
-    background: #f2f5f7;
-
-    width: 100%;
-    height: 100%;
-
-    border-radius: 5%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.avatar-box {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-
-    position: relative;
-
-    background-repeat: no-repeat;
-    background-size: 300px;
+    background: red;
 }
 
 .progress-bar {
     width: 300px;
     height: 300px;
-    transform: translateZ(0);
 }
 
-/*.avatar-box:before {*/
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /*top: -30px;*/
-    /*margin-left: -40px;*/
-    /*z-index: -1;*/
+#progress-path {
+    stroke-dasharray: 314.273, 314.273;
 
-    /*content: '';*/
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border-left: 40px solid transparent;*/
-    /*border-right: 40px solid transparent;*/
-    /*border-bottom: 40px solid white;*/
-/*}*/
+    animation-name: draw-path;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
 
-.avatar {
-    width: 226px;
-    height: 226px;
-    background: url('http://i.imgur.com/kc8uGI4.jpg');
-    background-size: 226px;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -113px;
-    margin-top: -113px;
-
-    border-radius: 50%;
-
-    transform: translateZ(0);
-    /*will-change: transform;*/
+@keyframes draw-path {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: -314.273; }
 }
