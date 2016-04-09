@@ -1,12 +1,4 @@
 // HELPERS
-function makeRGBA(degree) {
-    let ratio = 0.8 - (degree / 360);
-    const colorVal = Math.floor(255 * ratio);
-    const colorArray = [colorVal, colorVal, colorVal];
-
-    return 'rgba(' + colorArray.join(',') + ',1)';
-}
-
 function getColor(idx) {
     const colors = ['#6ed6a0', "#5bb8ff", '#6e85ff', "#ff8073", "#ffbe32"];
 
@@ -18,26 +10,48 @@ function getAvatar(idx) {
 
     return avatars[idx % avatars.length];
 }
-// HELPERS
 
-function conicGradient(el, from, to) {
-    const gradient = new ConicGradient({
+function conicGradient(from, to) {
+    let gradient = new ConicGradient({
         stops: from + ", " + to,
         size: 120
     });
+    return gradient.png;
+}
+// HELPERS
 
-    el.style.backgroundImage = 'url(' + gradient.png + ')';
+const style = document.createElement('style');
+style.type = 'text/css';
+document.getElementsByTagName('head')[0].appendChild(style);
+
+const gradientCache = new Map();
+function conicGradientClass(from, to) {
+    let className = gradientCache.get(from+to);
+
+    if(!className) {
+        const png = conicGradient(from, to);
+        className = `gradient-${gradientCache.size}`;
+
+        style.innerHTML += `.${className} { background-image: url('${png}'); }\n`;
+
+        gradientCache.set(from+to, className);
+    }
+
+    return className;
 }
 
 function drawLine(path) {
-    const length = path.getTotalLength();
+    const pathLength = path.getTotalLength();
+    path.style.strokeDasharray = pathLength + ' ' + pathLength;
 
-    path.style.transition = path.style.WebkitTransition = 'none';
-    path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = 0;
-    path.getBoundingClientRect();
-    path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = length;
+    return path.animate([
+        {strokeDashoffset: 0},
+        {strokeDashoffset: -pathLength}
+    ], {
+        easing: 'ease-in-out',
+        fill: 'forwards',
+        duration: 1500
+    });
 }
 
 function changeAvatar(i) {
@@ -50,7 +64,7 @@ function changeAvatar(i) {
     });
 
     player.onfinish = () => {
-        document.querySelector('.avatar').style.backgroundImage = 'url(' + getAvatar(i) + ')';
+        avatar.style.backgroundImage = 'url(' + getAvatar(i) + ')';
 
         avatar.animate([
             {transform: 'rotateY(90deg) scale(0.7)'},
@@ -63,27 +77,28 @@ function changeAvatar(i) {
 
 }
 
-const progressBar = document.querySelector('#progressPath');
-const path = progressBar.querySelector('path');
+const progressBar = document.querySelector('#progress-path');
 
 function progressBarAnimation() {
-
     let i = 0;
+    const player = drawLine(progressBar);
 
-    function drawContinous() {
+    function drawContinuous() {
         i++;
+
         changeAvatar(i);
-        conicGradient(avatarBox, getColor(i + 1), getColor(i));
-        drawLine(path);
+
+        const gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
+        avatarBox.className = `avatar-box ${gradientClass}`;
+
+        player.play();
     }
 
-    path.addEventListener('transitionend', drawContinous);
-    drawContinous();
+    player.onfinish = drawContinuous;
+    drawContinuous();
 }
 
 // MAIN
-
-progressBar.style.display = 'none';
 
 const avatarBox = document.querySelector('.avatar-box');
 const avatar = document.querySelector('.avatar');
@@ -113,7 +128,6 @@ player.onfinish = () => {
     });
 
     player.onfinish = () => {
-        progressBar.style.display = 'block';
         progressBarAnimation();
     };
 };

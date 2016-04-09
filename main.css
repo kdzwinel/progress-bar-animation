@@ -3,10 +3,6 @@ body {
     padding: 0;
 }
 
-svg {
-    transform: translateZ(0);
-}
-
 .baby-profile {
     background: #f2f5f7;
 
@@ -24,36 +20,39 @@ svg {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: white;
 
     position: relative;
 
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 300px;
+}
 
+.progress-bar {
+    width: 300px;
+    height: 300px;
     transform: translateZ(0);
 }
 
-.avatar-box:before {
-    position: absolute;
-    left: 50%;
-    top: -30px;
-    margin-left: -40px;
-    z-index: -1;
+/*.avatar-box:before {*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: -30px;*/
+    /*margin-left: -40px;*/
+    /*z-index: -1;*/
 
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 40px solid white;
-}
+    /*content: '';*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-left: 40px solid transparent;*/
+    /*border-right: 40px solid transparent;*/
+    /*border-bottom: 40px solid white;*/
+/*}*/
 
 .avatar {
     width: 226px;
     height: 226px;
     background: url('http://i.imgur.com/kc8uGI4.jpg');
-    background-size: 100%;
+    background-size: 226px;
 
     position: absolute;
     left: 50%;
@@ -62,4 +61,7 @@ svg {
     margin-top: -113px;
 
     border-radius: 50%;
+
+    transform: translateZ(0);
+    /*will-change: transform;*/
 }
