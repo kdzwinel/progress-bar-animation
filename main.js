@@ -11,48 +11,29 @@ function getAvatar(idx) {
     return avatars[idx % avatars.length];
 }
 
-function conicGradient(from, to) {
-    let gradient = new ConicGradient({
-        stops: from + ", " + to,
-        size: 120
-    });
-    return gradient.png;
-}
-// HELPERS
-
-const style = document.createElement('style');
-style.type = 'text/css';
-document.getElementsByTagName('head')[0].appendChild(style);
-
 const gradientCache = new Map();
-function conicGradientClass(from, to) {
-    let className = gradientCache.get(from+to);
+function conicGradient(from, to) {
+    var gradientImg = gradientCache.get(from+to);
 
-    if(!className) {
-        const png = conicGradient(from, to);
-        className = `gradient-${gradientCache.size}`;
+    if(!gradientImg) {
+        const gradient = new ConicGradient({
+            stops: from + ", " + to,
+            size: 120
+        });
 
-        style.innerHTML += `.${className} { background-image: url('${png}'); }\n`;
+        gradientImg = new Image();
+        gradientImg.src = gradient.png;
 
-        gradientCache.set(from+to, className);
+        gradientCache.set(from+to, gradientImg);
     }
 
-    return className;
+    return gradientImg;
 }
 
-function drawLine(path) {
-    const pathLength = path.getTotalLength();
-    path.style.strokeDasharray = pathLength + ' ' + pathLength;
-
-    return path.animate([
-        {strokeDashoffset: 0},
-        {strokeDashoffset: -pathLength}
-    ], {
-        easing: 'ease-in-out',
-        fill: 'forwards',
-        duration: 1500
-    });
+function easeInOutQuad(t) {
+    return t<.5 ? 2*t*t : -1+(4-2*t)*t;
 }
+// HELPERS
 
 function changeAvatar(i) {
     let player = avatar.animate([
@@ -77,25 +58,51 @@ function changeAvatar(i) {
 
 }
 
-const progressBar = document.querySelector('#progress-path');
+let currentGradient = null;
+const canvas = document.querySelector('.progress-bar');
+const ctx = canvas.getContext('2d');
+
+function drawProgressBar(deg) {
+    const t = deg/360;
+    const newT = easeInOutQuad(t);
+    const newDeg = newT * 360;
+
+    const start = ( (-90 + newDeg) / 360) * (Math.PI * 2);
+    const end = Math.PI * 1.5;
+
+    ctx.drawImage(currentGradient, 0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+    // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, start, end, false);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2 - 30, 0, Math.PI * 2, false);
+    ctx.fill();
+}
 
 function progressBarAnimation() {
-    let i = 0;
-    const player = drawLine(progressBar);
+    var deg = 0;
+    var i = 0;
+    currentGradient = conicGradient(getColor(i + 1), getColor(i));
 
-    function drawContinuous() {
-        i++;
+    requestAnimationFrame(function drawFrame() {
+        deg += 4;
+        drawProgressBar(deg);
 
-        changeAvatar(i);
+        if(deg === 360) {
+            deg = 0;
+            i++;
 
-        const gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
-        avatarBox.className = `avatar-box ${gradientClass}`;
+            currentGradient = conicGradient(getColor(i + 1), getColor(i));
+            changeAvatar(i);
+        }
 
-        player.play();
-    }
+        requestAnimationFrame(drawFrame);
+    });
 
-    player.onfinish = drawContinuous;
-    drawContinuous();
 }
 
 // MAIN
