@@ -96,7 +96,7 @@ I love SVG. It's elegant, scalable and works everywhere. It's perfect for mobile
 
 ![try to fit this in you ~16ms budget](http://i.imgur.com/EfeuTsw.png)
 
-On desktop even the unoptimized version works smoothly simply because there are multiple rasterization threads:
+On desktop even the unoptimized version of my animation works smoothly simply because there are multiple rasterization threads:
 
 ![rasterization on desktop](http://i.imgur.com/quzQjiC.png)
 
