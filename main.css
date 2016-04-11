@@ -24,12 +24,15 @@ body {
     position: relative;
 
     overflow: hidden;
+    will-change: transform;
+
+    background-size: 300px;
+    background-repeat: no-repeat;
 }
 
 .progress-bar {
     width: 300px;
     height: 300px;
-    /*transform: translateZ(0);*/
 }
 
 /*.avatar-box:before {*/
@@ -60,7 +63,5 @@ body {
     margin-top: -113px;
 
     border-radius: 50%;
-
-    /*transform: translateZ(0);*/
-    /*will-change: transform;*/
+    will-change: transform;
 }
