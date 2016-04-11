@@ -47,10 +47,10 @@ function drawLine(path) {
 
     path.style.transition = path.style.WebkitTransition = 'none';
     path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = length;
+    path.style.strokeDashoffset = 0;
     path.getBoundingClientRect();
     path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = '0';
+    path.style.strokeDashoffset = -length;
 }
 
 function changeAvatar(i) {
