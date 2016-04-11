@@ -64,6 +64,8 @@ function drawLine(path, callback) {
         path.style.strokeDashoffset = offset;
 
         requestAnimationFrame(step);
+
+        meter.tick();
     });
 }
 
@@ -127,3 +129,5 @@ player.onfinish = function () {
         progressBarAnimation();
     };
 };
+
+var meter = new FPSMeter();
