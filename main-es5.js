@@ -91,7 +91,7 @@ function progressBarAnimation() {
     function drawContinuous() {
         i++;
 
-        //changeAvatar(i);
+        changeAvatar(i);
 
         var gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
         avatarBox.className = 'avatar-box ' + gradientClass;
