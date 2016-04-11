@@ -26,29 +26,36 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 const gradientCache = new Map();
 function conicGradientClass(from, to) {
-    let className = gradientCache.get(from+to);
+    let className = gradientCache.get(from + to);
 
-    if(!className) {
+    if (!className) {
         const png = conicGradient(from, to);
         className = `gradient-${gradientCache.size}`;
 
         style.innerHTML += `.${className} { background-image: url('${png}'); }\n`;
 
-        gradientCache.set(from+to, className);
+        gradientCache.set(from + to, className);
     }
 
     return className;
 }
 
-function drawLine(path) {
+function drawLine(path, callback) {
     const length = path.getTotalLength();
+    let offset = 0;
 
-    path.style.transition = path.style.WebkitTransition = 'none';
     path.style.strokeDasharray = length + ' ' + length;
-    path.style.strokeDashoffset = 0;
-    path.getBoundingClientRect();
-    path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = -length;
+
+    requestAnimationFrame(function step() {
+        offset -= 1;
+        path.style.strokeDashoffset = offset;
+
+        if (offset % Math.round(length) === 0) {
+            callback();
+        }
+
+        requestAnimationFrame(step);
+    });
 }
 
 function changeAvatar(i) {
@@ -86,11 +93,9 @@ function progressBarAnimation() {
 
         const gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
         avatarBox.className = `avatar-box ${gradientClass}`;
-
-        drawLine(progressBar);
     }
 
-    progressBar.addEventListener('transitionend', drawContinuous);
+    drawLine(progressBar, drawContinuous);
     drawContinuous();
 }
 
