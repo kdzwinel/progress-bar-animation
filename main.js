@@ -20,29 +20,6 @@ function getAvatar(idx) {
 }
 // HELPERS
 
-const pieLeft = document.querySelector('.pie .slice-left');
-const pieRight = document.querySelector('.pie .slice-right');
-
-let player = pieRight.animate([
-    {webkitClipPath: 'rect(0, 50%, .5em, .5em)', opacity: 0},
-    {webkitClipPath: 'rect(0, 1em, .5em, .5em)', opacity: 1, offset: 0.5},
-    {webkitClipPath: 'rect(0, 1em, 1em, .5em)', opacity: 0, offset: 1}
-], {
-    easing: 'ease-in',
-    duration: 300,
-    delay: 1000,
-    fill: 'forwards'
+document.body.addEventListener('click', function() {
+    document.body.classList.toggle('rotate');
 });
-
-player.onfinish = () => {
-    pieLeft.animate([
-        {webkitClipPath: 'rect(.5em, .5em, 1em, .5em)'},
-        {webkitClipPath: 'rect(.5em, .5em, 1em, 0)', offset: 0.5},
-        {webkitClipPath: 'rect(.3em, .5em, 1em, 0)', offset: 1}
-    ], {
-        easing: 'ease-out',
-        duration: 300,
-        fill: 'forwards'
-    });
-};
-

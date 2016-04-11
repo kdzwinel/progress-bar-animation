@@ -1,84 +1,36 @@
-body {
-    background-color: #1d2225;
-    text-align: center;
-    padding-top: 5em;
-}
-.pie {
-    display: inline-block;
+.cirlce {
+    width: 200px;
+    height: 200px;
+    background: red;
+    border-radius: 50%;
     position: relative;
-    width: 1em;
-    height: 1em;
-    background-color: #2f3e46;
-    font-size: 7em;
-    text-align: center;
-    border-radius: 50%;
+    overflow: hidden;
 }
-.slice-right {
+.cirlce2 {
+    width: 180px;
+    height: 180px;
+    background: white;
+    border-radius: 50%;
     position: absolute;
-    z-index: 11;
-    background-color: #ff913b;
-    width: 100%;
+    transform: translateZ(1px);
+    left: 10px;
+    top: 10px;
+}
+.p1, .p2 {
+    background: white;
+    width: 50%;
     height: 100%;
-    clip: rect(0, .5em, .5em, .5em);
-    border-radius: 50%;
-}
-.slice-left {
     position: absolute;
-    z-index: 11;
-    background-color: #ff913b;
-    width: 100%;
-    height: 100%;
-    clip: rect(.5em, .5em, 1em, .5em);
-    border-radius: 50%;
+    transform: translateZ(1px);
 }
-.inner {
-    position: absolute;
-    z-index: 20;
-    top: 3px;
-    right: 3px;
-    bottom: 3px;
-    left: 3px;
-    background: #1d2225;
-    border-radius: 50%;
+.p2 {
+    transition: transform 0.5s linear;
+    right: 0;
+    transform: rotate(0deg) translateZ(1px);
+    background: white;
+    transform-origin: left center;
 }
 
-/*.slice-right {*/
-    /*-webkit-animation-delay: 1200ms;*/
-    /*-webkit-animation-duration: 300ms;*/
-    /*-webkit-animation-name: right-slice;*/
-    /*-webkit-animation-iteration-count: 1;*/
-    /*-webkit-animation-fill-mode: forwards;*/
-/*}*/
-
-/*.slice-left {*/
-    /*-webkit-animation-delay: 1500ms;*/
-    /*-webkit-animation-duration: 300ms;*/
-    /*-webkit-animation-name: left-slice;*/
-    /*-webkit-animation-iteration-count: 1;*/
-    /*-webkit-animation-timing-function: ease-out;*/
-    /*-webkit-animation-fill-mode: forwards;*/
-/*}*/
-
-/*@-webkit-keyframes right-slice {*/
-    /*from {*/
-        /*clip: rect(0, 50%, .5em, .5em);*/
-    /*}*/
-    /*50% {*/
-        /*clip: rect(0, 1em, .5em, .5em);*/
-    /*}*/
-    /*to {*/
-        /*clip: rect(0, 1em, 1em, .5em);*/
-    /*}*/
-/*}*/
-
-/*@-webkit-keyframes left-slice {*/
-    /*from {*/
-        /*clip: rect(.5em, .5em, 1em, .5em);*/
-    /*}*/
-    /*50% {*/
-        /*clip: rect(.5em, .5em, 1em, 0)*/
-    /*}*/
-    /*to {*/
-        /*clip: rect(.3em, .5em, 1em, 0);*/
-    /*}*/
-/*}*/
+.rotate .p2 {
+    transform: rotate(-180deg);
+}
