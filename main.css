@@ -32,8 +32,6 @@ body {
 .progress-bar {
     width: 300px;
     height: 300px;
-
-    will-change: transform;
 }
 
 /*.avatar-box:before {*/
