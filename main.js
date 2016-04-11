@@ -24,6 +24,7 @@ function easing(t) {
 }
 // HELPERS
 
+const meter = new FPSMeter();
 const style = document.createElement('style');
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);
@@ -141,5 +142,3 @@ player.onfinish = () => {
         progressBarAnimation();
     };
 };
-
-const meter = new FPSMeter();

@@ -26,6 +26,7 @@ function easing(t) {
 }
 // HELPERS
 
+var meter = new FPSMeter();
 var style = document.createElement('style');
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);
@@ -129,5 +130,3 @@ player.onfinish = function () {
         progressBarAnimation();
     };
 };
-
-var meter = new FPSMeter();
