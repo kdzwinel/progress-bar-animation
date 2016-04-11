@@ -111,3 +111,5 @@ Paul Irish did a very insigtfull [performance review](https://github.com/kdzwine
 I made a safari & edge friendly version of the "reverse" branch (see [reverse-es5](https://github.com/kdzwinel/progress-bar-animation/tree/reverse-es5)), added [FPSMeter](http://darsa.in/fpsmeter/) and tested it side by side on Nexus 5X, iPhone5S, Lumia 735. Here is the result:
 
 [![running side by side](http://i.imgur.com/yUXHw7s.png)](https://youtu.be/cg2CQt3RS-k)
+
+It's hard to tell if this test is fair since these phones have completely different specs. On the other hand, these are all modern devices and run lastest versions of the browsers, so I'd expect all of them to show this animation at the smooth 60FPS.
