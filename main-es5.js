@@ -26,7 +26,7 @@ function easing(t) {
 }
 // HELPERS
 
-var meter = new FPSMeter();
+var meter = new FPSMeter({ graph: 1, heat: 1 });
 var style = document.createElement('style');
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);

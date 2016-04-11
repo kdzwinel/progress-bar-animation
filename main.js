@@ -24,7 +24,7 @@ function easing(t) {
 }
 // HELPERS
 
-const meter = new FPSMeter();
+const meter = new FPSMeter({graph: 1, heat: 1});
 const style = document.createElement('style');
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);
