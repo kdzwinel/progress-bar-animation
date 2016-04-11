@@ -18,6 +18,10 @@ function conicGradient(from, to) {
     });
     return gradient.png;
 }
+
+function easing(t) {
+    return t<.5 ? 2*t*t : -1+(4-2*t)*t;
+}
 // HELPERS
 
 const style = document.createElement('style');
@@ -42,17 +46,20 @@ function conicGradientClass(from, to) {
 
 function drawLine(path, callback) {
     const length = path.getTotalLength();
-    let offset = 0;
+    let t = 0;
 
     path.style.strokeDasharray = length + ' ' + length;
 
     requestAnimationFrame(function step() {
-        offset -= 1;
-        path.style.strokeDashoffset = offset;
+        t += 1 / 100;
+        let offset = -(easing(t) * length);
 
-        if (offset % Math.round(length) === 0) {
-            callback();
+        if(t >= 1) {
+            t = 0;
+            requestAnimationFrame(callback);
         }
+
+        path.style.strokeDashoffset = offset;
 
         requestAnimationFrame(step);
     });
