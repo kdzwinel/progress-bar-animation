@@ -43,14 +43,14 @@ function conicGradientClass(from, to) {
 }
 
 function drawLine(path) {
-    var pathLength = path.getTotalLength();
-    path.style.strokeDasharray = pathLength + ' ' + pathLength;
+    var length = path.getTotalLength();
 
-    return path.animate([{ strokeDashoffset: 0 }, { strokeDashoffset: -pathLength }], {
-        easing: 'ease-in-out',
-        fill: 'forwards',
-        duration: 1500
-    });
+    path.style.transition = path.style.WebkitTransition = 'none';
+    path.style.strokeDasharray = length + ' ' + length;
+    path.style.strokeDashoffset = length;
+    path.getBoundingClientRect();
+    path.style.transition = path.style.WebkitTransition = 'stroke-dashoffset 1.5s ease-in-out';
+    path.style.strokeDashoffset = '0';
 }
 
 function changeAvatar(i) {
@@ -73,20 +73,19 @@ var progressBar = document.querySelector('#progress-path');
 
 function progressBarAnimation() {
     var i = 0;
-    var player = drawLine(progressBar);
 
     function drawContinuous() {
         i++;
 
-        changeAvatar(i);
+        //changeAvatar(i);
 
         var gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
         avatarBox.className = 'avatar-box ' + gradientClass;
 
-        player.play();
+        drawLine(progressBar);
     }
 
-    player.onfinish = drawContinuous;
+    progressBar.addEventListener('transitionend', drawContinuous);
     drawContinuous();
 }
 
