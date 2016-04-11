@@ -103,3 +103,7 @@ On desktop even the unoptimized version of my animation works smoothly simply be
 During last Chrome Dev Summit, Chrome team promised to step up their SVG game. I really hope that this will happen soon. In my opinion, SVG is a natural fit for creating complex animations on the web.
 
 Meanwhile, I'll probably go with the canvas solution. It puts much more work on JS, but has a decent performance, is universally supported and, with a bit of work, I can make it look sharp on all dpis.
+
+## Follow-up
+
+Paul Irish did a very insigtfull [performance review](https://github.com/kdzwinel/progress-bar-animation/issues/1) of the SVG version of my animation. Unfortunately, he haven't found any significant improvements.
