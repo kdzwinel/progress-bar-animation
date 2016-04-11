@@ -107,3 +107,7 @@ Meanwhile, I'll probably go with the canvas solution. It puts much more work on 
 ## Follow-up
 
 Paul Irish did a very insigtfull [performance review](https://github.com/kdzwinel/progress-bar-animation/issues/1) of the SVG version of my animation. Unfortunately, he haven't found any significant improvements.
+
+I made a safari & edge friendly version of the "reverse" branch (see [reverse-es5](https://github.com/kdzwinel/progress-bar-animation/tree/reverse-es5)), added [FPSMeter](http://darsa.in/fpsmeter/) and tested it side by side on Nexus 5X, iPhone5S, Lumia 735. Here is the result:
+
+[![running side by side](http://i.imgur.com/yUXHw7s.png)](https://youtu.be/cg2CQt3RS-k)
