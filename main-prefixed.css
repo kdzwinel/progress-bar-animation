@@ -37,13 +37,13 @@ body {
 
     background-repeat: no-repeat;
     background-size: 300px;
+
+    will-change: transform;
 }
 
 .progress-bar {
     width: 300px;
     height: 300px;
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
 }
 
 /*.avatar-box:before {*/
@@ -74,9 +74,5 @@ body {
     margin-top: -113px;
 
     border-radius: 50%;
-
-    -webkit-transform: translateZ(0);
-
-            transform: translateZ(0);
-    /*will-change: transform;*/
+    will-change: transform;
 }

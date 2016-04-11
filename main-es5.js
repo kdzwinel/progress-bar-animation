@@ -68,7 +68,7 @@ function drawLine(path, callback) {
 }
 
 function changeAvatar(i) {
-    var player = avatar.animate([{ transform: 'rotateY(0) scale(1)' }, { transform: 'rotateY(90deg) scale(0.7)' }], {
+    var player = avatar.animate([{ transform: 'rotateY(0) translateZ(1px)' }, { transform: 'rotateY(90deg) translateZ(1px)' }], {
         easing: 'ease-in',
         duration: 150
     });
@@ -76,7 +76,7 @@ function changeAvatar(i) {
     player.onfinish = function () {
         avatar.style.backgroundImage = 'url(' + getAvatar(i) + ')';
 
-        avatar.animate([{ transform: 'rotateY(90deg) scale(0.7)' }, { transform: 'rotateY(0deg) scale(1)' }], {
+        avatar.animate([{ transform: 'rotateY(90deg) translateZ(1px)' }, { transform: 'rotateY(0deg) translateZ(1px)' }], {
             easing: 'ease-out',
             duration: 150
         });
