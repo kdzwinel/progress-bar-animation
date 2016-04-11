@@ -1,36 +1,100 @@
-.cirlce {
-    width: 200px;
-    height: 200px;
-    background: red;
+body {
+    margin: 5px;
+    padding: 0;
+}
+
+.baby-profile {
+    background: #f2f5f7;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-box {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+
+    position: relative;
+
+    will-change: transform;
+}
+
+
+.avatar {
+    width: 226px;
+    height: 226px;
+    background: url('http://i.imgur.com/kc8uGI4.jpg');
+    background-size: 226px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -113px;
+    margin-top: -113px;
+
+    border-radius: 50%;
+    will-change: transform;
+
+}
+
+/****************************/
+/**** Progress Bar **********/
+/****************************/
+
+.doughnut {
+    width: 300px;
+    display: flex;
+}
+
+.half {
+    width: 150px;
+    overflow: hidden;
+}
+
+.filling {
+    width: 270px;
+    height: 270px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateZ(1px);
+    left: 15px;
+    top: 15px;
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     position: relative;
     overflow: hidden;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+    left: -150px;
+
+    background-repeat: no-repeat;
+    background-size: contain;
 }
-.cirlce2 {
-    width: 180px;
-    height: 180px;
-    background: white;
-    border-radius: 50%;
+
+.left .circle {
+    left: 0;
+}
+
+.rotor {
+    width: 150px;
+    height: 300px;
     position: absolute;
-    transform: translateZ(1px);
-    left: 10px;
-    top: 10px;
-}
-.p1, .p2 {
-    background: white;
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    transform: translateZ(1px);
-}
-.p2 {
-    transition: transform 0.5s linear;
     right: 0;
-    transform: rotate(0deg) translateZ(1px);
     background: white;
     transform-origin: left center;
 }
 
-.rotate .p2 {
+.left .rotor {
     transform: rotate(-180deg);
 }
