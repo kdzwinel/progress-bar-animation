@@ -95,7 +95,7 @@ function drawProgressBar(deg) {
     ctx.arc(canvasInfo.center.x, canvasInfo.center.y, canvasInfo.height / 2, start, end, false);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(canvasInfo.center.x, canvasInfo.center.y, canvasInfo.height / 2 - 60, 0, Math.PI * 2, false);
+    ctx.arc(canvasInfo.center.x, canvasInfo.center.y, canvasInfo.height / 2 - 40, 0, Math.PI * 2, false);
     ctx.fill();
 }
 
