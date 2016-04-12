@@ -11,6 +11,23 @@ function getAvatar(idx) {
     return avatars[idx % avatars.length];
 }
 
+function cutOutCircle(img) {
+    const offscreen = document.createElement('canvas');
+    offscreen.width = 300;
+    offscreen.height = 300;
+    const osCtx = offscreen.getContext('2d');
+
+    osCtx.drawImage(img, 0, 0, offscreen.width, offscreen.height);
+
+    osCtx.fillStyle = 'white';
+    osCtx.beginPath();
+    osCtx.moveTo(offscreen.width / 2, offscreen.height / 2);
+    osCtx.arc(offscreen.width / 2, offscreen.height / 2, offscreen.height / 2 - 20, 0, Math.PI * 2, false);
+    osCtx.fill();
+
+    return offscreen;
+}
+
 const gradientCache = new Map();
 function conicGradient(from, to) {
     var gradientImg = gradientCache.get(from+to);
@@ -21,8 +38,7 @@ function conicGradient(from, to) {
             size: 120
         });
 
-        gradientImg = new Image();
-        gradientImg.src = gradient.png;
+        gradientImg = cutOutCircle(gradient.canvas);
 
         gradientCache.set(from+to, gradientImg);
     }
@@ -61,6 +77,7 @@ function changeAvatar(i) {
 let currentGradient = null;
 const canvas = document.querySelector('.progress-bar');
 const ctx = canvas.getContext('2d');
+ctx.fillStyle = 'white';
 
 function drawProgressBar(deg) {
     const t = deg/360;
@@ -72,20 +89,16 @@ function drawProgressBar(deg) {
 
     ctx.drawImage(currentGradient, 0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.moveTo(canvas.width / 2, canvas.height / 2);
     // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
     ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, start, end, false);
     ctx.fill();
-    ctx.beginPath();
-    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2 - 30, 0, Math.PI * 2, false);
-    ctx.fill();
 }
 
 function progressBarAnimation() {
-    var deg = 0;
-    var i = 0;
+    let deg = 0;
+    let i = 0;
     currentGradient = conicGradient(getColor(i + 1), getColor(i));
 
     requestAnimationFrame(function drawFrame() {
@@ -134,8 +147,6 @@ player.onfinish = () => {
         duration: 200
     });
 
-    player.onfinish = () => {
-        progressBarAnimation();
-    };
+    player.onfinish = progressBarAnimation;
 };
 
