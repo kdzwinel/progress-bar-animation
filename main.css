@@ -75,8 +75,8 @@ body {
     border-radius: 50%;
     position: relative;
     overflow: hidden;
-    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
     left: -150px;
+    transform: translateZ(0);
 
     background-repeat: no-repeat;
     background-size: contain;
