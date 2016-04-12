@@ -24,10 +24,6 @@ body {
     position: relative;
 
     overflow: hidden;
-    will-change: transform;
-
-    background-size: 300px;
-    background-repeat: no-repeat;
 }
 
 .progress-bar {
@@ -63,5 +59,6 @@ body {
     margin-top: -113px;
 
     border-radius: 50%;
+
     will-change: transform;
 }

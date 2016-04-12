@@ -11,41 +11,48 @@ function getAvatar(idx) {
     return avatars[idx % avatars.length];
 }
 
+function cutOutCircle(img) {
+    const offscreen = document.createElement('canvas');
+    offscreen.width = 300;
+    offscreen.height = 300;
+    const osCtx = offscreen.getContext('2d');
+
+    osCtx.drawImage(img, 0, 0, offscreen.width, offscreen.height);
+
+    osCtx.fillStyle = 'white';
+    osCtx.beginPath();
+    osCtx.moveTo(offscreen.width / 2, offscreen.height / 2);
+    osCtx.arc(offscreen.width / 2, offscreen.height / 2, offscreen.height / 2 - 20, 0, Math.PI * 2, false);
+    osCtx.fill();
+
+    return offscreen;
+}
+
+const gradientCache = new Map();
 function conicGradient(from, to) {
-    let gradient = new ConicGradient({
-        stops: from + ", " + to,
-        size: 120
-    });
-    return gradient.png;
+    var gradientImg = gradientCache.get(from+to);
+
+    if(!gradientImg) {
+        const gradient = new ConicGradient({
+            stops: from + ", " + to,
+            size: 120
+        });
+
+        gradientImg = cutOutCircle(gradient.canvas);
+
+        gradientCache.set(from+to, gradientImg);
+    }
+
+    return gradientImg;
 }
 
 function easeInOutQuad(t) {
-    return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    return t<.5 ? 2*t*t : -1+(4-2*t)*t;
 }
 // HELPERS
 
-const style = document.createElement('style');
-style.type = 'text/css';
-document.getElementsByTagName('head')[0].appendChild(style);
-
-const gradientCache = new Map();
-function conicGradientClass(from, to) {
-    let className = gradientCache.get(from+to);
-
-    if(!className) {
-        const png = conicGradient(from, to);
-        className = `gradient-${gradientCache.size}`;
-
-        style.innerHTML += `.${className} { background-image: url('${png}'); }\n`;
-
-        gradientCache.set(from+to, className);
-    }
-
-    return className;
-}
-
 function changeAvatar(i) {
-    const player = avatar.animate([
+    let player = avatar.animate([
         {transform: 'rotateY(0) scale(1)'},
         {transform: 'rotateY(90deg) scale(0.7)'}
     ], {
@@ -70,53 +77,40 @@ function changeAvatar(i) {
 let currentGradient = null;
 const canvas = document.querySelector('.progress-bar');
 const ctx = canvas.getContext('2d');
-const canvasInfo = {
-    center: {
-        x: canvas.width/2,
-        y: canvas.height/2
-    },
-    width: canvas.width,
-    height: canvas.height
-};
+ctx.fillStyle = 'white';
 
 function drawProgressBar(deg) {
-    const t = deg / 360;
+    const t = deg/360;
     const newT = easeInOutQuad(t);
     const newDeg = newT * 360;
 
     const start = ( (-90 + newDeg) / 360) * (Math.PI * 2);
     const end = Math.PI * 1.5;
 
-    ctx.clearRect(0, 0, canvasInfo.width, canvasInfo.height);
-    ctx.fillStyle = 'white';
+    ctx.drawImage(currentGradient, 0, 0, canvas.width, canvas.height);
+
     ctx.beginPath();
-    ctx.moveTo(canvasInfo.center.x, canvasInfo.center.y);
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
     // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
-    ctx.arc(canvasInfo.center.x, canvasInfo.center.y, canvasInfo.height / 2, start, end, false);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(canvasInfo.center.x, canvasInfo.center.y, canvasInfo.height / 2 - 40, 0, Math.PI * 2, false);
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, start, end, false);
     ctx.fill();
 }
 
 function progressBarAnimation() {
-    var deg = 0;
-    var i = 0;
-    let gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
-    avatarBox.className = `avatar-box ${gradientClass}`;
+    let deg = 0;
+    let i = 0;
+    currentGradient = conicGradient(getColor(i + 1), getColor(i));
 
     requestAnimationFrame(function drawFrame() {
         deg += 4;
         drawProgressBar(deg);
 
-        if (deg === 360) {
+        if(deg === 360) {
             deg = 0;
             i++;
 
+            currentGradient = conicGradient(getColor(i + 1), getColor(i));
             changeAvatar(i);
-
-            gradientClass = conicGradientClass(getColor(i + 1), getColor(i));
-            avatarBox.className = `avatar-box ${gradientClass}`;
         }
 
         requestAnimationFrame(drawFrame);
