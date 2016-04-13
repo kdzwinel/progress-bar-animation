@@ -99,7 +99,7 @@ function drawProgressBar(deg) {
     ctx.beginPath();
     ctx.moveTo(canvas.width / 2, canvas.height / 2);
     // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
-    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, start, end, false);
+    ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2 + 2, start, end, false);
     ctx.fill();
 }
 
