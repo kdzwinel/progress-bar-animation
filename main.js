@@ -17,12 +17,19 @@ function cutOutCircle(img) {
     offscreen.height = 300;
     const osCtx = offscreen.getContext('2d');
 
+    //outer ring
+    osCtx.beginPath();
+    osCtx.arc(offscreen.width / 2, offscreen.height / 2, offscreen.height / 2 + 2, 0, Math.PI * 2, false);
+    osCtx.clip();
+
+    //gradient
     osCtx.drawImage(img, 0, 0, offscreen.width, offscreen.height);
 
+    //inner ring
     osCtx.fillStyle = 'white';
     osCtx.beginPath();
     osCtx.moveTo(offscreen.width / 2, offscreen.height / 2);
-    osCtx.arc(offscreen.width / 2, offscreen.height / 2, offscreen.height / 2 - 20, 0, Math.PI * 2, false);
+    osCtx.arc(offscreen.width / 2, offscreen.height / 2, offscreen.height / 2 - (offscreen.height / 15), 0, Math.PI * 2, false);
     osCtx.fill();
 
     return offscreen;
