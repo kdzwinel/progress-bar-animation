@@ -1,4 +1,4 @@
-# Making Doughnut Progress Bar :doughnut:
+# Making a Doughnut Progress Bar :doughnut:
 
 ## Design
 I was working on a new user profile component for my company. One of its elements is a combination of an avatar and a progress bar. First design that I got from our graphic design team looked like this:
@@ -34,7 +34,7 @@ And so I started looking for optimizations.
 
 ## Optimizations
 
-## Conic gradient (`svg-image` branch)
+### Conic gradient (`svg-image` branch)
 
 Progress bar is using conic gradient in the background. Since this type of gradient is not supported natively in SVG (nor CSS), I had to generate it myself (with SVG and JS). My soltuion turned out to be suboptimal. Using paint profiler I found out that gradient is regenerated in each frame (which is a lot of unnecesarry work):
 
@@ -100,7 +100,7 @@ I love SVG. It's elegant, scalable and works everywhere. It's perfect for mobile
 
 Why on the desktop even the unoptimized version of my animation, the prototype, works smoothly? That's simply because there are multiple rasterization threads that can handle the load:
 
-![rasterization on desktop](http://i.imgur.com/quzQjiC.png)
+![rasterization on desktop](http://i.imgur.com/n2E7yWk.png)
 
 During last Chrome Dev Summit, Chrome team promised to step up their SVG game. I really hope that this will happen soon. In my opinion, SVG is a natural fit for creating complex animations on the web.
 
