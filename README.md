@@ -11,7 +11,7 @@ Rounded avatar and a white bubble in the background can be easily created with C
 - canvas and
 - SVG.
 
-Looking through the different CSS pie chart implementations I decided that CSS is not fitted for the job. All solutions were hacks that would be hard to control. I was also woried that it will be cumbersome to make it work on all the browsers that we support. Canvas, with almost universal support, seemed more appealing. However, canvas would require me to implement timing (e.g. easing functions) and scaling (to support higher dpis) myself. Besides, I though that it would not utilize GPU as well as CSS transitions/transforms. SVG seemed like the best of both worlds: it's universally supported, doesn't need any hacks to create a required shape, utilizes CSS transitions to create animations and fits all screen dpis out of the box. So, I dusted off my SVG knowledge and started coding.
+Looking through the different CSS pie chart implementations I decided that CSS is not fitted for the job. All solutions were hacks that would be hard to control. I was also worried that it will be cumbersome to make it work on all the browsers that we support. Canvas, with almost universal support, seemed more appealing. However, canvas would require me to implement timing (e.g. easing functions) and scaling (to support higher dpis) myself. Besides, I though that it would not utilize GPU as well as CSS transitions/transforms. SVG seemed like the best of both worlds: it's universally supported, doesn't need any hacks to create a required shape, utilizes CSS transitions to create animations and fits all screen dpis out of the box. So, I dusted off my SVG knowledge and started coding.
 
 ## Prototype (`master` branch)
 First prototype was ready in couple of hours and it looked like this:
@@ -36,7 +36,7 @@ And so I started looking for optimizations.
 
 ### Conic gradient (`svg-image` branch)
 
-Progress bar is using conic gradient in the background. Since this type of gradient is not supported natively in SVG (nor CSS), I had to generate it myself (with SVG and JS). My soltuion turned out to be suboptimal. Using paint profiler I found out that gradient is regenerated in each frame (which is a lot of unnecesarry work):
+Progress bar is using conic gradient in the background. Since this type of gradient is not supported natively in SVG (nor CSS), I had to generate it myself (with SVG and JS). My solution turned out to be suboptimal. Using paint profiler I found out that gradient is regenerated in each frame (which is a lot of unnecessary work):
 
 ![paint profiler FTW](http://i.imgur.com/QJlJ3hu.png)
 
@@ -68,7 +68,7 @@ In the process I also learned that setting base64 background directly on the ele
 
 Additionally, to reduce the time browser spends on painting, we forced it (via `translateZ`/`will-change`) to promote avatar and SVG to separate layers.
 
-After all these optimizations (and numerous hours) the result was still rather disapointing:
+After all these optimizations (and numerous hours) the result was still rather disappointing:
 
 ![loosing frames here and there](http://i.imgur.com/oZEedwu.png)
 
@@ -76,7 +76,7 @@ Two biggest offenders were rasterization and compositing.
 
 ### Loosing faith in SVG (`minimal` branch)
 
-I figured out that maybe it's all because I'm using web animation API? Or maybe because I use flexbox? Maybe because I'm doing two animations at once? Maybe it's all gradient's fault? So I started removing things one by one. Eventually, I ended up with 15 lines of HTML/SVG, 25 lines of CSS and no JS. That's how the simplifed animation looked:
+I figured out that maybe it's all because I'm using web animation API? Or maybe because I use flexbox? Maybe because I'm doing two animations at once? Maybe it's all gradient's fault? So I started removing things one by one. Eventually, I ended up with 15 lines of HTML/SVG, 25 lines of CSS and no JS. That's how the simplified animation looked:
 
 ![as simple as that](http://i.imgur.com/EB1ACEO.png)
 
@@ -108,7 +108,7 @@ Meanwhile, I'll probably go with the canvas solution. It puts much more work on 
 
 ## Follow-up
 
-Paul Irish did a very insigtfull [performance review](https://github.com/kdzwinel/progress-bar-animation/issues/1) of the SVG version of my animation. Unfortunately, he haven't found any significant improvements.
+Paul Irish did a very insightful [performance review](https://github.com/kdzwinel/progress-bar-animation/issues/1) of the SVG version of my animation. Unfortunately, he haven't found any significant improvements.
 
 ---
 
