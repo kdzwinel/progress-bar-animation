@@ -1,7 +1,7 @@
-# progress-bar-animation
+# Making Doughnut Progress Bar :doughnut:
 
 ## Design
-I'm working on a new user profile component for my company. One of its elements is a combination of an avatar and a progress bar. First design that I got from our graphic design team looked like this:
+I was working on a new user profile component for my company. One of its elements is a combination of an avatar and a progress bar. First design that I got from our graphic design team looked like this:
 
 ![design](http://i.imgur.com/9HMJrVJ.png)
 
@@ -31,6 +31,8 @@ On my way home from work I realized that I haven't yet looked at the performance
 (For these unfamiliar with DevTools Timeline - red marks point out lost frames and the FPS graph should, ideally, be all green and flat.)
 
 And so I started looking for optimizations.
+
+## Optimizations
 
 ## Conic gradient (`svg-image` branch)
 
@@ -76,7 +78,7 @@ Two biggest offenders were rasterization and compositing.
 
 I figured out that maybe it's all because I'm using web animation API? Or maybe because I use flexbox? Maybe because I'm doing two animations at once? Maybe it's all gradient's fault? So I started removing things one by one. Eventually, I ended up with 15 lines of HTML/SVG, 25 lines of CSS and no JS. That's how the simplifed animation looked:
 
-![as simple as that](http://i.imgur.com/6ZPAKGZ.png)
+![as simple as that](http://i.imgur.com/EB1ACEO.png)
 
 And that's a timeline of this, absolutely minimal, animation on my Android device:
 
@@ -94,9 +96,9 @@ I quickly rebuilt the whole thing using canvas. There is much more JS magic goin
 
 I love SVG. It's elegant, scalable and works everywhere. It's perfect for mobile... as long as it doesn't move. There is no way to animate it smoothly on Android - rasterization won't give you a chance:
 
-![try to fit this in you ~16ms budget](http://i.imgur.com/EfeuTsw.png)
+![try to fit this in you ~16ms budget](http://i.imgur.com/9RyFSIS.png)
 
-On desktop even the unoptimized version of my animation works smoothly simply because there are multiple rasterization threads:
+Why on the desktop even the unoptimized version of my animation, the prototype, works smoothly? That's simply because there are multiple rasterization threads that can handle the load:
 
 ![rasterization on desktop](http://i.imgur.com/quzQjiC.png)
 
