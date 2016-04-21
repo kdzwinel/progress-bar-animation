@@ -6,7 +6,7 @@ I was working on a new user profile component for my company. One of its element
 ![design](http://i.imgur.com/9HMJrVJ.png)
 
 ## Research
-Rounded avatar and a white buble in the background can be easly created with CSS. Progres bar is definitely the most chalenging element. I considered three ways of building it:
+Rounded avatar and a white bubble in the background can be easily created with CSS. Progress bar is definitely the most challenging element. I considered three ways of building it:
 - CSS,
 - canvas and
 - SVG.
