@@ -122,6 +122,6 @@ Before making final decision I decided to also test CSS version of the animation
 
 ---
 
-Based on the above research I created a simple library wrapping my canvas implementation: https://brainly.github.io/ui-components/components/doughnut-progress-bar/ . We ended up using on production to create this little widget:
+Based on the above research I created a simple library wrapping my canvas implementation: https://brainly.github.io/ui-components/components/doughnut-progress-bar/ . We ended up using it on production to create this little widget:
 
 ![(almost) final product](https://i.imgur.com/K6o7jm0.gif)
