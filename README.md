@@ -108,8 +108,20 @@ Meanwhile, I'll probably go with the canvas solution. It puts much more work on 
 
 Paul Irish did a very insigtfull [performance review](https://github.com/kdzwinel/progress-bar-animation/issues/1) of the SVG version of my animation. Unfortunately, he haven't found any significant improvements.
 
+---
+
 I made a safari & edge friendly version of the "reverse" branch (see [reverse-es5](https://github.com/kdzwinel/progress-bar-animation/tree/reverse-es5)), added [FPSMeter](http://darsa.in/fpsmeter/) and tested it side by side on Nexus 5X, iPhone5S, Lumia 735. Here is the result:
 
 [![running side by side](http://i.imgur.com/yUXHw7s.png)](https://youtu.be/cg2CQt3RS-k)
 
 It's hard to tell if this test is fair since these phones have completely different specs. On the other hand, these are all modern devices and run lastest versions of the browsers, so I'd expect all of them to show this animation at the smooth 60FPS.
+
+---
+
+Before making final decision I decided to also test CSS version of the animation (see `css` branch). As I thought, it turned out to be one big hack that's hard to work with. Also, since the implementation uses two separate elements that have to be synced, making non-linear easing would be challenging. Taking these issues into consideration, despite the fact that it was the most performant solution out of three I tested, I made the decision to stick with canvas.
+
+---
+
+Based on the above research I created a simple library wrapping my canvas implementation: https://brainly.github.io/ui-components/components/doughnut-progress-bar/ . We ended up using on production to create this little widget:
+
+![(almost) final product](https://i.imgur.com/K6o7jm0.gif)
