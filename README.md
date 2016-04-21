@@ -24,7 +24,7 @@ Everything, besides the progress bar, was done in HTML/CSS. Animation of the pro
 
 ![how it's built](http://i.imgur.com/Zh3IW5v.png)
 
-On my way home from work I realized that I haven't yet looked at the performance of that component. I also remembered that during last Chrome Dev Summit someone mentioned that Chromes SVG implementation is dated and not especially performant. That made me fear for the worst. On the next day, I opened the prototype on my HTC One and, sure enough, saw a choppy animation. I debugged it remotely and got this timeline:
+On my way home from work I realized that I haven't yet looked at the performance of that component. I also remembered that during last Chrome Dev Summit someone mentioned that Chromes SVG implementation is dated and not especially performant. That made me fear for the worst. On the next day, I opened the prototype on my HTC One and, sure enough, saw a choppy animation. I [debugged it remotely](https://developers.google.com/web/tools/chrome-devtools/debug/remote-debugging/remote-debugging) and got this timeline:
 
 ![prototype - timeline](http://i.imgur.com/xsuGfvD.png)
 
