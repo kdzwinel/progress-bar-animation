@@ -42,7 +42,7 @@ Progress bar is using conic gradient in the background. Since this type of gradi
 
 My fix was to generate each background once and use animated SVG mask to reveal it.
 
-```
+```html
     <svg>
       <defs>
           <mask id="progressPath">
@@ -88,7 +88,7 @@ And that's a timeline of this, absolutely minimal, animation on my Android devic
 
 ### Canvas (`canvas` branch)
 
-I quickly rebuilt the whole thing using canvas. There is much more JS magic going on, but rasterization is no longer an issue and animation feels waaay smoother. It still isn't perfect, compositing steals a frame once in a while, but I'm much closer to the final version.
+I quickly rebuilt the whole thing using canvas. There is much more JS magic going on, but rasterization is no longer an issue and animation feels *waaay* smoother. It still isn't perfect, compositing steals a frame once in a while, but I'm much closer to the final version.
 
 ![canvas](http://i.imgur.com/c8IClLc.png)
 
@@ -98,7 +98,7 @@ I love SVG. It's elegant, scalable and works everywhere. It's perfect for mobile
 
 ![try to fit this in you ~16ms budget](http://i.imgur.com/9RyFSIS.png)
 
-Why on the desktop even the unoptimized version of my animation, the prototype, works smoothly? That's simply because there are multiple rasterization threads that can handle the load:
+So, why on the desktop even the unoptimized version of my animation, the prototype, works smoothly? That's simply because there are multiple rasterization threads that can handle the load:
 
 ![rasterization on desktop](http://i.imgur.com/n2E7yWk.png)
 
@@ -120,7 +120,7 @@ It's hard to tell if this test is fair since these phones have completely differ
 
 ---
 
-Before making final decision I decided to also test CSS version of the animation (see `css` branch). As I thought, it turned out to be one big hack that's hard to work with. Also, since the implementation uses two separate elements that have to be synced, making non-linear easing would be challenging. Taking these issues into consideration, despite the fact that it was the most performant solution out of three I tested, I made the decision to stick with canvas.
+Before making a final decision I decided to also test the CSS version of the animation (see `css` branch). As I thought, it turned out to be one big hack that's hard to work with. Also, since the implementation uses two separate elements that have to be synced, making non-linear easing would be challenging. Taking these issues into consideration, despite the fact that it was the most performant solution out of the three I tested, I made the decision to stick with canvas.
 
 ---
 
